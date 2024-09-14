@@ -375,7 +375,7 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    For x86_64 Linux the flag `GPU_SUPPORT` is automatically set to `true`, to manually disable gpu support set the flag to false, like:
 
-   `make GPU_SUPPORT=false` (or `cmake -DBTOP_GPU=false` with CMake)
+   `make GPU_SUPPORT=false` (or `cmake -DBTOP_ENABLE_GPU=OFF` with CMake)
 
  * **NVIDIA**
 
@@ -520,17 +520,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    Some useful options to pass to the configure step:
 
-   | Configure flag                  | Description                                                             |
-   |---------------------------------|-------------------------------------------------------------------------|
-   | `-DBTOP_STATIC=<ON\|OFF>`       | Enables static linking (OFF by default)                                 |
-   | `-DBTOP_LTO=<ON\|OFF>`          | Enables link time optimization (ON by default)                          |
-   | `-DBTOP_USE_MOLD=<ON\|OFF>`     | Use mold to link btop (OFF by default)                                  |
-   | `-DBTOP_PEDANTIC=<ON\|OFF>`     | Compile with additional warnings (OFF by default)                       |
-   | `-DBTOP_WERROR=<ON\|OFF>`       | Compile with warnings as errors (OFF by default)                        |
-   | `-DBTOP_FORTIFY=<ON\|OFF>`      | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
-   | `-DBTOP_GPU=<ON\|OFF>`          | Enable GPU support (ON by default)                                      |
-   | `-DBTOP_RSMI_STATIC=<ON\|OFF>`  | Build and link the ROCm SMI library statically (OFF by default)         |
-   | `-DCMAKE_INSTALL_PREFIX=<path>` | The installation prefix ('/usr/local' by default)                       |
+   | Configure flag                        | Description                                                             |
+   |---------------------------------------|-------------------------------------------------------------------------|
+   | `-DBTOP_STATIC=<ON\|OFF>`             | Enables static linking (OFF by default)                                 |
+   | `-DBTOP_ENABLE_LTO=<ON\|OFF>`         | Enables link time optimization (ON by default)                          |
+   | `-DBTOP_ENABLE_WERROR=<ON\|OFF>`      | Compile with warnings as errors (OFF by default)                        |
+   | `-DBTOP_FORTIFY=<ON\|OFF>`            | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
+   | `-DBTOP_ENABLE_GPU=<ON\|OFF>`         | Enable GPU support (ON by default)                                      |
+   | `-DBTOP_ENABLE_STATIC_RSMI=<ON\|OFF>` | Build and link the ROCm SMI library statically (OFF by default)         |
+   | `-DCMAKE_INSTALL_PREFIX=<path>`       | The installation prefix ('/usr/local' by default)                       |
 
    To force any other compiler, run `CXX=<compiler> cmake -B build -G Ninja`
 
@@ -545,14 +543,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 5. **Uninstall**
 
    CMake doesn't generate an uninstall target by default. To remove installed files, run
-   ```
+
+   ```bash
    cat build/install_manifest.txt | xargs rm -irv
    ```
 
 6. **Cleanup build directory**
 
    ```bash
-   cmake --build build -t clean
+   cmake --build build --target clean
    ```
 
 </details>
@@ -694,14 +693,12 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    Some useful options to pass to the configure step:
 
-   | Configure flag                  | Description                                                             |
-   |---------------------------------|-------------------------------------------------------------------------|
-   | `-DBTOP_LTO=<ON\|OFF>`          | Enables link time optimization (ON by default)                          |
-   | `-DBTOP_USE_MOLD=<ON\|OFF>`     | Use mold to link btop (OFF by default)                                  |
-   | `-DBTOP_PEDANTIC=<ON\|OFF>`     | Compile with additional warnings (OFF by default)                       |
-   | `-DBTOP_WERROR=<ON\|OFF>`       | Compile with warnings as errors (OFF by default)                        |
-   | `-DBTOP_FORTIFY=<ON\|OFF>`      | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
-   | `-DCMAKE_INSTALL_PREFIX=<path>` | The installation prefix ('/usr/local' by default)                       |
+   | Configure flag                        | Description                                                             |
+   |---------------------------------------|-------------------------------------------------------------------------|
+   | `-DBTOP_ENABLE_LTO=<ON\|OFF>`         | Enables link time optimization (ON by default)                          |
+   | `-DBTOP_ENABLE_WERROR=<ON\|OFF>`      | Compile with warnings as errors (OFF by default)                        |
+   | `-DBTOP_FORTIFY=<ON\|OFF>`            | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
+   | `-DCMAKE_INSTALL_PREFIX=<path>`       | The installation prefix ('/usr/local' by default)                       |
 
    To force any specific compiler, run `CXX=<compiler> cmake -B build -G Ninja`
 
@@ -716,14 +713,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 5. **Uninstall**
 
    CMake doesn't generate an uninstall target by default. To remove installed files, run
-   ```
+
+   ```bash
    cat build/install_manifest.txt | xargs rm -irv
    ```
 
 6. **Cleanup build directory**
 
    ```bash
-   cmake --build build -t clean
+   cmake --build build --target clean
    ```
 
 </details>
@@ -872,17 +870,13 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    Some useful options to pass to the configure step:
 
-   | Configure flag                  | Description                                                             |
-   |---------------------------------|-------------------------------------------------------------------------|
-   | `-DBTOP_STATIC=<ON\|OFF>`       | Enables static linking (OFF by default)                                 |
-   | `-DBTOP_LTO=<ON\|OFF>`          | Enables link time optimization (ON by default)                          |
-   | `-DBTOP_USE_MOLD=<ON\|OFF>`     | Use mold to link btop (OFF by default)                                  |
-   | `-DBTOP_PEDANTIC=<ON\|OFF>`     | Compile with additional warnings (OFF by default)                       |
-   | `-DBTOP_WERROR=<ON\|OFF>`       | Compile with warnings as errors (OFF by default)                        |
-   | `-DBTOP_FORTIFY=<ON\|OFF>`      | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
-   | `-DCMAKE_INSTALL_PREFIX=<path>` | The installation prefix ('/usr/local' by default)                       |
-
-   _**Note:** Static linking does not work with GCC._
+   | Configure flag                        | Description                                                             |
+   |---------------------------------------|-------------------------------------------------------------------------|
+   | `-DBTOP_STATIC=<ON\|OFF>`             | Enables static linking (OFF by default)                                 |
+   | `-DBTOP_ENABLE_LTO=<ON\|OFF>`         | Enables link time optimization (ON by default)                          |
+   | `-DBTOP_ENABLE_WERROR=<ON\|OFF>`      | Compile with warnings as errors (OFF by default)                        |
+   | `-DBTOP_FORTIFY=<ON\|OFF>`            | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
+   | `-DCMAKE_INSTALL_PREFIX=<path>`       | The installation prefix ('/usr/local' by default)                       |
 
    To force any other compiler, run `CXX=<compiler> cmake -B build -G Ninja`
 
@@ -897,14 +891,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 5. **Uninstall**
 
    CMake doesn't generate an uninstall target by default. To remove installed files, run
-   ```
+
+   ```bash
    cat build/install_manifest.txt | xargs rm -irv
    ```
 
 6. **Cleanup build directory**
 
    ```bash
-   cmake --build build -t clean
+   cmake --build build --target clean
    ```
 
 </details>
@@ -1036,14 +1031,13 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    Some useful options to pass to the configure step:
 
-   | Configure flag                  | Description                                                             |
-   |---------------------------------|-------------------------------------------------------------------------|
-   | `-DBTOP_LTO=<ON\|OFF>`          | Enables link time optimization (ON by default)                          |
-   | `-DBTOP_USE_MOLD=<ON\|OFF>`     | Use mold to link btop (OFF by default)                                  |
-   | `-DBTOP_PEDANTIC=<ON\|OFF>`     | Compile with additional warnings (OFF by default)                       |
-   | `-DBTOP_WERROR=<ON\|OFF>`       | Compile with warnings as errors (OFF by default)                        |
-   | `-DBTOP_FORTIFY=<ON\|OFF>`      | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
-   | `-DCMAKE_INSTALL_PREFIX=<path>` | The installation prefix ('/usr/local' by default)                       |
+   | Configure flag                        | Description                                                             |
+   |---------------------------------------|-------------------------------------------------------------------------|
+   | `-DBTOP_STATIC=<ON\|OFF>`             | Enables static linking (OFF by default)                                 |
+   | `-DBTOP_ENABLE_LTO=<ON\|OFF>`         | Enables link time optimization (ON by default)                          |
+   | `-DBTOP_ENABLE_WERROR=<ON\|OFF>`      | Compile with warnings as errors (OFF by default)                        |
+   | `-DBTOP_FORTIFY=<ON\|OFF>`            | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
+   | `-DCMAKE_INSTALL_PREFIX=<path>`       | The installation prefix ('/usr/local' by default)                       |
 
    To force any other compiler, run `CXX=<compiler> cmake -B build -G Ninja`
 
@@ -1058,14 +1052,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 5. **Uninstall**
 
    CMake doesn't generate an uninstall target by default. To remove installed files, run
-   ```
+
+   ```bash
    cat build/install_manifest.txt | xargs rm -irv
    ```
 
 6. **Cleanup build directory**
 
    ```bash
-   cmake --build build -t clean
+   cmake --build build --target clean
    ```
 
 </details>
@@ -1199,14 +1194,13 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 
    Some useful options to pass to the configure step:
 
-   | Configure flag                  | Description                                                             |
-   |---------------------------------|-------------------------------------------------------------------------|
-   | `-DBTOP_LTO=<ON\|OFF>`          | Enables link time optimization (ON by default)                          |
-   | `-DBTOP_USE_MOLD=<ON\|OFF>`     | Use mold to link btop (OFF by default)                                  |
-   | `-DBTOP_PEDANTIC=<ON\|OFF>`     | Compile with additional warnings (OFF by default)                       |
-   | `-DBTOP_WERROR=<ON\|OFF>`       | Compile with warnings as errors (OFF by default)                        |
-   | `-DBTOP_FORTIFY=<ON\|OFF>`      | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
-   | `-DCMAKE_INSTALL_PREFIX=<path>` | The installation prefix ('/usr/local' by default)                       |
+   | Configure flag                        | Description                                                             |
+   |---------------------------------------|-------------------------------------------------------------------------|
+   | `-DBTOP_STATIC=<ON\|OFF>`             | Enables static linking (OFF by default)                                 |
+   | `-DBTOP_ENABLE_LTO=<ON\|OFF>`         | Enables link time optimization (ON by default)                          |
+   | `-DBTOP_ENABLE_WERROR=<ON\|OFF>`      | Compile with warnings as errors (OFF by default)                        |
+   | `-DBTOP_FORTIFY=<ON\|OFF>`            | Detect buffer overflows with `_FORTIFY_SOURCE=3` (ON by default)        |
+   | `-DCMAKE_INSTALL_PREFIX=<path>`       | The installation prefix ('/usr/local' by default)                       |
 
    To force any other compiler, run `CXX=<compiler> cmake -B build -G Ninja`
 
@@ -1221,14 +1215,15 @@ If you have an AMD GPU `rocm_smi_lib` is required, which may or may not be packa
 5. **Uninstall**
 
    CMake doesn't generate an uninstall target by default. To remove installed files, run
-   ```
+
+   ```bash
    cat build/install_manifest.txt | xargs rm -irv
    ```
 
 6. **Cleanup build directory**
 
    ```bash
-   cmake --build build -t clean
+   cmake --build build --target clean
    ```
 
 </details>

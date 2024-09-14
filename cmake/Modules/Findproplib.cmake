@@ -12,12 +12,11 @@ if(BSD)
 
   if(proplib_FOUND AND NOT TARGET proplib::proplib)
     add_library(proplib::proplib UNKNOWN IMPORTED)
-    set_target_properties(proplib::proplib PROPERTIES
-      IMPORTED_LOCATION "${proplib_LIBRARY}"
-      INTERFACE_INCLUDE_DIRECTORIES "${proplib_INCLUDE_DIR}"
+    set_target_properties(
+      proplib::proplib PROPERTIES IMPORTED_LOCATION "${proplib_LIBRARY}" INTERFACE_INCLUDE_DIRECTORIES
+                                                                         "${proplib_INCLUDE_DIR}"
     )
   endif()
 
   mark_as_advanced(proplib_INCLUDE_DIR proplib_LIBRARY)
 endif()
-
